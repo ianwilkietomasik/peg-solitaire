@@ -17,6 +17,14 @@ std::vector<std::vector<int>> PegSolitaireState::get_config(){
   return config;
 }
 
+std::vector<Move> PegSolitaireState::get_moves(){
+  return moves;
+}
+
+void PegSolitaireState::add_move(Move m){
+  moves.push_back(m);
+}
+
 bool is_valid_square(std::pair<int,int> p){
   if(p.second > 1 && p.second < 5){
     return p.first > -1 && p.first < 7;
@@ -46,11 +54,15 @@ PegSolitaireState::PegSolitaireState(){
 PegSolitaireState::PegSolitaireState(std::vector<std::vector<int>> c)
   : config(c){}
 
+PegSolitaireState::PegSolitaireState(std::vector<std::vector<int>> c,
+				     std::vector<Move> m)
+  : config(c), moves(m){}
+
 std::vector<std::pair<int,int>> get_adjacent_squares(std::pair<int, int> pos, bool next){
   return {
-	  {pos.first + 1 + next, pos.second}, // down
 	  {pos.first - 1 - next, pos.second}, // up
 	  {pos.first, pos.second + 1 + next}, // right
+	  {pos.first + 1 + next, pos.second}, // down
 	  {pos.first, pos.second - 1 - next}  // left
   };
 }
@@ -69,7 +81,9 @@ std::vector<PegSolitaireState> PegSolitaireState::get_next_states(){
 	    new_config[i][j] = 0;
 	    new_config[jumps[k].first][jumps[k].second] = 0;
 	    new_config[dests[k].first][dests[k].second] = 1;
-	    PegSolitaireState new_state(new_config);
+	    PegSolitaireState new_state(new_config, moves);
+	    Move m(i, j, k);
+	    new_state.add_move(m);
 	    next_states.push_back(new_state);
 	  }
 	}
