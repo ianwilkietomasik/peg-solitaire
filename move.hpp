@@ -1,8 +1,9 @@
 #include <utility>
+#include <string>
 class Move{
   std::pair<int, int> coord;
-  int dir;
+  std::string dir;
 public:
-  Move(int i, int j, int dir);
+  Move(int i, int j, std::string dir);
   void print();
 };

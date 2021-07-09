@@ -67,6 +67,20 @@ std::vector<std::pair<int,int>> get_adjacent_squares(std::pair<int, int> pos, bo
   };
 }
 
+std::string get_move(int i){
+  switch(i){
+  case 0:
+    return "UP";
+  case 1:
+    return "RIGHT";
+  case 2:
+    return "DOWN";
+  case 3:
+    return "LEFT";
+  }
+  return "";
+}
+
 std::vector<PegSolitaireState> PegSolitaireState::get_next_states(){
   std::vector<PegSolitaireState> next_states;
   for(int i = 0; i < 7; i++){
@@ -82,7 +96,7 @@ std::vector<PegSolitaireState> PegSolitaireState::get_next_states(){
 	    new_config[jumps[k].first][jumps[k].second] = 0;
 	    new_config[dests[k].first][dests[k].second] = 1;
 	    PegSolitaireState new_state(new_config, moves);
-	    Move m(i, j, k);
+	    Move m(i, j, get_move(k));
 	    new_state.add_move(m);
 	    next_states.push_back(new_state);
 	  }

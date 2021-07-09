@@ -1,9 +1,9 @@
 #include "move.hpp"
 #include <iostream>
 
-Move::Move(int i, int j, int d)
+Move::Move(int i, int j, std::string d)
   : coord({i, j}), dir(d){}
 
 void Move::print(){
-  std::cout << "i: " << coord.first << " j: " << coord.second << " dir: " << dir << std::endl;
+  std::cout << "(" << coord.first << ", " << coord.second << ")" << " : " << dir << std::endl;
 }
