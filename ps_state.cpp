@@ -36,19 +36,15 @@ bool is_valid_square(std::pair<int,int> p){
   return false;
 }
 
-PegSolitaireState::PegSolitaireState(){
-  std::vector<std::vector<int>> c(7, std::vector<int>(7));
-  config = c;
+PegSolitaireState::PegSolitaireState()
+  : config(7, std::vector<int>(7)) {
   for(int i = 0; i < 7; i++){
     for(int j  = 0; j < 7; j++){
-      if(j == i && j == 3){
-	config[i][j] = 0;
-      }
-      else{
-	config[i][j] = is_valid_square({i, j}) ? 1 : 2;
-      }
+      config[i][j] = is_valid_square({i, j}) ? 1 : 2;
     }
   }
+  
+  config[3][3] = 0;
 }
 
 PegSolitaireState::PegSolitaireState(std::vector<std::vector<int>> c)
