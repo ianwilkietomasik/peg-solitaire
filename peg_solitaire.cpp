@@ -7,7 +7,10 @@ std::vector<Move> PegSolitaireSolver::solve(PegSolitaireState state){
     return state.get_moves();
   }
   for(auto s : state.get_next_states()){
-    solve(s);
+    std::vector<Move> res = solve(s);
+    if(!res.empty()){
+      return res;
+    }
   }
   return {};
 }
